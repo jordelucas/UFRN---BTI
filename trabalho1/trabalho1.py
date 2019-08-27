@@ -1,21 +1,17 @@
 import os
 import time
 
-def child():
-   print('\nA new child %d' % os.getpid())
-   os._exit(0)  
-
 def criar():
    newpid = os.fork()
    if newpid == 0:
       time.sleep(30)
       os.kill(os.getpid(), 9)
    else:
-      print(os.getpid())
+      return
 
 def encerrar():
-   n_pid = int(input('Informe o PID que deseja encerrar: '))
-   os.kill(os.getpid(), 9)
+   n_pid = int(input('\nInforme o PID que deseja encerrar: '))
+   os.kill(n_pid, 9)
 
 
 def listar_processos():
@@ -29,13 +25,13 @@ def menu():
       print('2. Encerrar processo')
       print('3. Finalizar execução')
 
-      op = input('Escolha uma opção: ')
+      op = int(input('Escolha uma opção: '))
 
-      if op == '1':
+      if op == 1:
          criar()
          listar_processos()
       else:
-         if op == '2':
+         if op == 2:
             encerrar()
             listar_processos()
 
