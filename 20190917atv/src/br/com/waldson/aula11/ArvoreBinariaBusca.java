@@ -32,10 +32,63 @@ public class ArvoreBinariaBusca {
     }
 
     public Node remove(int value) {
-        if (raiz == null) {
+        if (isEmpty()) {
             return null;
         }
+
+        if (raiz.getValue() == value) {
+            if (leaf()) {
+                raiz = null;
+                return null;
+            }
+
+            Node temp = one();
+            if (temp != null) {
+                raiz = temp;
+                return raiz;
+            }
+
+            temp = raiz.getLeft();
+            if(temp.getRight() == null) {
+                temp.insert(raiz.getRight());
+                raiz = temp;
+                return raiz;
+            }
+
+            Node maiorValor = maiorValor(temp);
+            maiorValor.insert(raiz.getRight());
+            maiorValor.insert(raiz.getLeft());
+            raiz = maiorValor;
+            return null;
+        }
+
         return raiz.remove(value);
+    }
+
+    public boolean leaf () {
+        return raiz.getLeft() == null && raiz.getRight() == null;
+    }
+
+    private Node one() {
+        if(raiz.getLeft() != null && raiz.getRight() == null) {
+            return raiz.getLeft();
+        }
+
+        if(raiz.getLeft() == null && raiz.getRight() != null) {
+            return raiz.getRight();
+        }
+
+        return null;
+    }
+
+    private Node maiorValor (Node node) {
+        if (node.getRight().getRight() == null) {
+            Node temp = node.getRight();
+            node.setRight(null);
+            return temp;
+        }
+
+        return maiorValor(node.getRight());
     }
 
 }

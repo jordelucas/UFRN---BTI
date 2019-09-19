@@ -17,6 +17,14 @@ public class Node {
         return right;
     }
 
+    public void setLeft(Node left) {
+        this.left = left;
+    }
+
+    public void setRight(Node right) {
+        this.right = right;
+    }
+
     public int getValue() {
         return value;
     }
@@ -73,7 +81,7 @@ public class Node {
                     }
 
                     //um filho
-                    Node temp = one(this.left);
+                    Node temp = oneLeaf(this.left);
                     if (temp != null) {
                         this.left = temp;
                         return this;
@@ -109,7 +117,7 @@ public class Node {
                     }
 
                     //um filho
-                    Node temp = one(this.right);
+                    Node temp = oneLeaf(this.right);
                     if (temp != null) {
                         this.right = temp;
                         return this;
@@ -138,7 +146,7 @@ public class Node {
         return null;
     }
 
-    private Node one(Node node) {
+    private Node oneLeaf(Node node) {
         if(node.left != null && node.right == null) {
             return node.left;
         }
@@ -150,11 +158,11 @@ public class Node {
         return null;
     }
 
-    public boolean leaf (Node node) {
+    private boolean leaf (Node node) {
         return node.left == null && node.right == null;
     }
 
-    public Node maiorValor (Node node) {
+    private Node maiorValor (Node node) {
         if (node.right.right == null) {
             Node temp = node.right;
             node.right = null;

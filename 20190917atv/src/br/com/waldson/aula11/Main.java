@@ -18,11 +18,12 @@ public class Main {
         arvore.insert(7);
         arvore.insert(0);
 
-        arvore.remove(6);
+        arvore.remove(9);
+        arvore.remove(7);
 
         JFrame frame = new JFrame("Visualizador de ABB");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(400,300);
+        frame.setSize(400,450);
 
         ArvoreBinariaBuscaView view = new ArvoreBinariaBuscaView(arvore);
         frame.add(view);
