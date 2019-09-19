@@ -18,6 +18,10 @@ public class ArvoreBinariaBuscaView extends JComponent {
             return;
         }
 
+        if(arvore.getRoot() == null) {
+            return;
+        }
+
         drawNode(graphics, this.arvore.getRoot(), getWidth() / 2, 0, 0);
     }
 

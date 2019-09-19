@@ -19,7 +19,11 @@ public class Main {
         arvore.insert(0);
 
         arvore.remove(9);
-        arvore.remove(7);
+        Node result = arvore.remove(20);
+        if(result == null) {
+            System.out.println("O valor informado não está na árvore.");
+        }
+
 
         JFrame frame = new JFrame("Visualizador de ABB");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
