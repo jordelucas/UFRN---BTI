@@ -74,6 +74,38 @@ public class FilaBanco {
     }
 
     public void remove() {
+        pessoas[0] = pessoas[getSize() - 1];
+        pessoas[getSize() - 1] = null;
+        size--;
+        heapfyDown(0);
 
+    }
+
+    private void heapfyDown(int index) {
+        int leftChild = index * 2 + 1;
+        int rightChild = index * 2 + 2;
+
+        int childIndex = -1;
+
+        if (leftChild < getSize()) {
+            childIndex = leftChild;
+        }
+
+        if (childIndex < 0) {
+            return;
+        }
+
+        if (rightChild < getSize()) {
+            if (pessoas[rightChild].getIdade() > pessoas[leftChild].getIdade()) {
+                childIndex = rightChild;
+            }
+        }
+
+        if (pessoas[index].getIdade() < pessoas[childIndex].getIdade()) {
+            Pessoa tmp = pessoas[index];
+            pessoas[index] = pessoas[childIndex];
+            pessoas[childIndex] = tmp;
+            heapfyDown(childIndex);
+        }
     }
 }
