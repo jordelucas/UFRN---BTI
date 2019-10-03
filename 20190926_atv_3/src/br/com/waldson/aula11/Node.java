@@ -61,6 +61,10 @@ public class Node {
         int valueLeft = 0;
         int valueRight = 0;
 
+        if (node == null) {
+            return 0;
+        }
+
         if (node.getRight() == null && node.getLeft() == null) {
             return  0;
         }

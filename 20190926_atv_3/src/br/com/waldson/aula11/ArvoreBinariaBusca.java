@@ -37,10 +37,16 @@ public class ArvoreBinariaBusca {
         }
 
         if (getRoot().getLeft() == null && getRoot().getRight() == null)  {
-            return 0;
+            return 1;
         }
 
-        return raiz.height(raiz);
+        int heightLeft = raiz.height(raiz.getLeft());
+        int heightRight = raiz.height(raiz.getRight());
 
+        if (heightLeft == heightRight) {
+            return 1;
+        }else{
+            return 0;
+        }
     }
 }
