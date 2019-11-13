@@ -116,6 +116,28 @@ public class TrieNode {
         }
     }
 
+    public void autocomplete(String palavra, int qtd) {
+        TrieNode node = search(palavra, 0);
+
+        Queue<TrieNode> list = new LinkedList<TrieNode>();
+
+        Queue<String> palavras = new LinkedList<String>();
+
+        if(node.isWord()){
+            palavras.add(node.getText());
+        }
+
+        for (Character key : node.children.keySet()) {
+            list.add(node.children.get(key));
+        }
+
+        autocomplete(list, palavras, qtd);
+
+        for (String current : palavras) {
+            System.out.println(current);
+        }
+    }
+
     private void autocomplete(Queue<TrieNode> list, Queue<String> palavras) {
         TrieNode node = list.peek();
 
@@ -134,5 +156,29 @@ public class TrieNode {
         list.remove();
 
         autocomplete(list, palavras);
+    }
+
+    private void autocomplete(Queue<TrieNode> list, Queue<String> palavras, int qtd) {
+        TrieNode node = list.peek();
+
+        if (node == null) {
+            return;
+        }
+
+        if(palavras.size() == qtd){
+            return;
+        }
+
+        if(node.isWord()){
+            palavras.add(node.getText());
+        }
+
+        for (Character key : node.children.keySet()) {
+            list.add(node.children.get(key));
+        }
+
+        list.remove();
+
+        autocomplete(list, palavras, qtd);
     }
 }
