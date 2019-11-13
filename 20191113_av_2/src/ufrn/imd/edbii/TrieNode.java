@@ -29,16 +29,13 @@ public class TrieNode {
             if(posicao == palavra.length()-1){
                 TrieNode trie = new TrieNode(palavra);
                 this.children.put((Character) palavra.charAt(posicao), trie);
-/*                System.out.println("ultima: " + palavra.charAt(posicao));*/
                 return;
             }else{
                 TrieNode trie = new TrieNode();
                 this.children.put((Character) palavra.charAt(posicao), trie);
-/*                System.out.println("nao e a ultima: " + palavra.charAt(posicao));*/
                 trie.insert(palavra, ++posicao);
             }
         }else{
-/*            System.out.println("tem outros: " + palavra.charAt(posicao));*/
             child.insert(palavra, ++posicao);
         }
     }
@@ -48,4 +45,14 @@ public class TrieNode {
     }
 
 
+    public void readTrie() {
+        for (Character key : children.keySet()) {
+            System.out.println(key);
+        }
+
+        for (Character key : children.keySet()) {
+            System.out.println("**" + key + "**");
+            this.children.get(key).readTrie();
+        }
+    }
 }
