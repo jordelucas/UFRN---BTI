@@ -19,6 +19,9 @@ public class Main {
 
 /*        root.search("el");*/
 
-        root.autocomplete("am", 4);
+/*        root.autocomplete("o");*/
+
+        root.autocomplete("m", 4);
+
     }
 }

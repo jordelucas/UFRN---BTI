@@ -97,6 +97,11 @@ public class TrieNode {
     public void autocomplete(String palavra) {
         TrieNode node = search(palavra, 0);
 
+        if(node == null){
+            System.out.println("não encontrado");
+            return;
+        }
+
         Queue<TrieNode> list = new LinkedList<TrieNode>();
 
         Queue<String> palavras = new LinkedList<String>();
@@ -118,6 +123,11 @@ public class TrieNode {
 
     public void autocomplete(String palavra, int qtd) {
         TrieNode node = search(palavra, 0);
+
+        if(node == null){
+            System.out.println("não encontrado");
+            return;
+        }
 
         Queue<TrieNode> list = new LinkedList<TrieNode>();
 
