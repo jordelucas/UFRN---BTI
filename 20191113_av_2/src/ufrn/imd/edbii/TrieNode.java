@@ -48,6 +48,36 @@ public class TrieNode {
         }
     }
 
+    public void search(String palavra) {
+        System.out.println(search(palavra, 0));
+    }
+
+    private boolean search(String palavra, int position) {
+        TrieNode node = children.get(palavra.charAt(position));
+        if(node == null) {
+/*
+            System.out.println("Palavra nao adicionada");
+*/
+            return false;
+        }
+
+        if(position == palavra.length()-1){
+            if(node.isWord()){
+/*
+                System.out.println("Palavra localizada: " + node.getText());
+*/
+                return true;
+            }else {
+/*
+                System.out.println("Não forma uma palavra");
+*/
+                return false;
+            }
+        }
+
+        return  node.search(palavra, ++position);
+    }
+
     private TrieNode getChild(char c) {
         return children.get((Character) c);
     }

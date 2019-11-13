@@ -15,6 +15,8 @@ public class Main {
             root.insert(br.readLine());
         }
 
-        root.readTrie();
+/*        root.readTrie();*/
+
+        root.search("elas");
     }
 }
