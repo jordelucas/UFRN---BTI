@@ -13,6 +13,14 @@ public class TrieNode {
         this.children = new HashMap<Character, TrieNode>();
     }
 
+    public boolean isWord() {
+        return isWord;
+    }
+
+    public String getText() {
+        return text;
+    }
+
     public TrieNode() {
         this.isWord = false;
         this.text = "";
@@ -46,12 +54,15 @@ public class TrieNode {
 
 
     public void readTrie() {
-        for (Character key : children.keySet()) {
+/*        for (Character key : children.keySet()) {
             System.out.println(key);
-        }
+        }*/
 
         for (Character key : children.keySet()) {
             System.out.println("**" + key + "**");
+            if(children.get(key).isWord()){
+                System.out.println(children.get(key).getText());
+            }
             this.children.get(key).readTrie();
         }
     }
