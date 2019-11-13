@@ -1,6 +1,6 @@
 package ufrn.imd.edbii;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class TrieNode {
     private boolean isWord;
@@ -49,33 +49,30 @@ public class TrieNode {
     }
 
     public void search(String palavra) {
-        System.out.println(search(palavra, 0));
+        TrieNode node = search(palavra, 0);
+        if (node != null) {
+            if(node.isWord()){
+                System.out.println(search(palavra, 0).getText());
+            }else{
+                System.out.println("palavra nao existe");
+            }
+        }else{
+            System.out.println("palavra nao existe");
+        }
     }
 
-    private boolean search(String palavra, int position) {
+    private TrieNode search(String palavra, int position) {
         TrieNode node = children.get(palavra.charAt(position));
+
         if(node == null) {
-/*
-            System.out.println("Palavra nao adicionada");
-*/
-            return false;
+            return null;
         }
 
         if(position == palavra.length()-1){
-            if(node.isWord()){
-/*
-                System.out.println("Palavra localizada: " + node.getText());
-*/
-                return true;
-            }else {
-/*
-                System.out.println("Não forma uma palavra");
-*/
-                return false;
-            }
+            return node;
         }
 
-        return  node.search(palavra, ++position);
+        return node.search(palavra, ++position);
     }
 
     private TrieNode getChild(char c) {
@@ -95,5 +92,47 @@ public class TrieNode {
             }
             this.children.get(key).readTrie();
         }
+    }
+
+    public void autocomplete(String palavra) {
+        TrieNode node = search(palavra, 0);
+
+        Queue<TrieNode> list = new LinkedList<TrieNode>();
+
+        Queue<String> palavras = new LinkedList<String>();
+
+        if(node.isWord()){
+            palavras.add(node.getText());
+        }
+
+        for (Character key : node.children.keySet()) {
+            list.add(node.children.get(key));
+        }
+
+        autocomplete(list, palavras);
+
+        for (String current : palavras) {
+            System.out.println(current);
+        }
+    }
+
+    private void autocomplete(Queue<TrieNode> list, Queue<String> palavras) {
+        TrieNode node = list.peek();
+
+        if (node == null) {
+            return;
+        }
+
+        if(node.isWord()){
+            palavras.add(node.getText());
+        }
+
+        for (Character key : node.children.keySet()) {
+            list.add(node.children.get(key));
+        }
+
+        list.remove();
+
+        autocomplete(list, palavras);
     }
 }

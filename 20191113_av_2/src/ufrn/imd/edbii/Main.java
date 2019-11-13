@@ -17,6 +17,8 @@ public class Main {
 
 /*        root.readTrie();*/
 
-        root.search("elas");
+/*        root.search("el");*/
+
+        root.autocomplete("oi");
     }
 }
