@@ -17,6 +17,10 @@ public class TrieNode {
         return isWord;
     }
 
+    public void setWord() {
+        isWord = !isWord();
+    }
+
     public String getText() {
         return text;
     }
@@ -44,7 +48,7 @@ public class TrieNode {
                 trie.insert(palavra, ++posicao);
             }
         }else{
-            child.insert(palavra, ++posicao);
+            child.insert(palavra, posicao+1);
         }
     }
 
@@ -81,10 +85,6 @@ public class TrieNode {
 
 
     public void readTrie() {
-/*        for (Character key : children.keySet()) {
-            System.out.println(key);
-        }*/
-
         for (Character key : children.keySet()) {
             System.out.println("**" + key + "**");
             if(children.get(key).isWord()){
@@ -190,5 +190,45 @@ public class TrieNode {
         list.remove();
 
         autocomplete(list, palavras, qtd);
+    }
+
+    public void remove(String palavra) {
+        boolean result = remove(palavra, 0);
+        if(result){
+            System.out.println("Removido");
+        }else{
+            System.out.println("Palavra nao encontrada");
+        }
+    }
+
+    private boolean remove(String palavra, int position) {
+        TrieNode node = children.get(palavra.charAt(position));
+
+        if(node == null) {
+            return false;
+        }
+
+        if(position == palavra.length()-1){
+            if(node.isWord()){
+                node.setWord();
+                if(node.isEmpty()){
+                    children.remove(palavra.charAt(position));
+                }
+                return true;
+            }
+            return false;
+        }
+
+        boolean result = node.remove(palavra, position+1);
+
+        if(node.isEmpty() && !node.isWord()){
+            children.remove(palavra.charAt(position));
+        }
+
+        return result;
+    }
+
+    private boolean isEmpty(){
+        return this.children.isEmpty();
     }
 }

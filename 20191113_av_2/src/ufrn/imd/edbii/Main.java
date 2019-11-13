@@ -21,7 +21,8 @@ public class Main {
 
 /*        root.autocomplete("o");*/
 
-        root.autocomplete("m", 4);
+/*        root.autocomplete("m", 4);*/
 
+        root.remove("amar");
     }
 }
