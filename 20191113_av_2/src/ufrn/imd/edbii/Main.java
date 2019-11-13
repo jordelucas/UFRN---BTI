@@ -1,12 +1,20 @@
 package ufrn.imd.edbii;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 	    TrieNode root = new TrieNode();
 
-        root.insert("a");
-        root.insert("ama");
-        root.insert("amar");
+        BufferedReader br = new BufferedReader(new FileReader("palavras.txt"));
+
+        while (br.ready()) {
+            root.insert(br.readLine());
+        }
+
+        root.readTrie();
     }
 }
