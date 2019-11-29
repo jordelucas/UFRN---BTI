@@ -26,7 +26,7 @@ public class Main {
             }
 
             if (args.length == 2) {
-                Queue<String> suggestions = root.autocomplete("a");
+                Queue<String> suggestions = root.autocomplete(args[1]);
                 root.printSuggestions(suggestions);
                 return;
             }
