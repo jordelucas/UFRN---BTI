@@ -13,16 +13,20 @@ public class TrieNode {
         this.children = new HashMap<Character, TrieNode>();
     }
 
-    public boolean isWord() {
+    private boolean isWord() {
         return isWord;
     }
 
-    public void setWord() {
+    private void setWord() {
         isWord = !isWord();
     }
 
-    public String getText() {
+    private String getText() {
         return text;
+    }
+
+    private boolean isEmpty(){
+        return this.children.isEmpty();
     }
 
     public TrieNode() {
@@ -41,7 +45,6 @@ public class TrieNode {
             if(posicao == palavra.length()-1){
                 TrieNode trie = new TrieNode(palavra);
                 this.children.put((Character) palavra.charAt(posicao), trie);
-                return;
             }else{
                 TrieNode trie = new TrieNode();
                 this.children.put((Character) palavra.charAt(posicao), trie);
@@ -83,28 +86,17 @@ public class TrieNode {
         return children.get((Character) c);
     }
 
-
-    public void readTrie() {
-        for (Character key : children.keySet()) {
-            System.out.println("**" + key + "**");
-            if(children.get(key).isWord()){
-                System.out.println(children.get(key).getText());
-            }
-            this.children.get(key).readTrie();
-        }
-    }
-
-    public void autocomplete(String palavra) {
+    public Queue<String> autocomplete(String palavra) {
         TrieNode node = search(palavra, 0);
-
-        if(node == null){
-            System.out.println("não encontrado");
-            return;
-        }
 
         Queue<TrieNode> list = new LinkedList<TrieNode>();
 
         Queue<String> palavras = new LinkedList<String>();
+
+        if(node == null){
+            System.out.println("não encontrado");
+            return palavras;
+        }
 
         if(node.isWord()){
             palavras.add(node.getText());
@@ -116,9 +108,7 @@ public class TrieNode {
 
         autocomplete(list, palavras);
 
-        for (String current : palavras) {
-            System.out.println(current);
-        }
+        return palavras;
     }
 
     public void autocomplete(String palavra, int qtd) {
@@ -228,7 +218,10 @@ public class TrieNode {
         return result;
     }
 
-    private boolean isEmpty(){
-        return this.children.isEmpty();
+    public void printSuggestions(Queue<String> palavras) {
+        for (String current : palavras) {
+            System.out.println(current);
+        }
     }
+
 }
