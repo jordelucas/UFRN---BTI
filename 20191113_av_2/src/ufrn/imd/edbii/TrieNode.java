@@ -51,7 +51,9 @@ public class TrieNode {
                 trie.insert(palavra, ++posicao);
             }
         }else{
-            child.insert(palavra, posicao+1);
+            if(posicao != palavra.length()-1){
+                child.insert(palavra, posicao+1);
+            }
         }
     }
 
