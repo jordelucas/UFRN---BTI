@@ -18,14 +18,14 @@ public class App extends JDialog {
     private DefaultListModel<String> model;
     private Queue<String> suggestions;
 
-    public App() throws IOException {
+    public App(String fileName) throws IOException {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         root = new TrieNode();
         model = new DefaultListModel<>();
 
-        BufferedReader br = new BufferedReader(new FileReader("palavras.txt"));
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
         while (br.ready()) {
             root.insert(br.readLine());
         }
